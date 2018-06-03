@@ -1,0 +1,175 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../iron-selector/iron-selector.html">
+<link rel="import" href="../paper-styles/color.html">
+<link rel="import" href="components/polymer/lib/elements/dom-if.html">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+<dom-module id="ropi-template">
+	<template>
+		<style include="iron-flex iron-flex-alignment">
+		<style>
+			:host {
+			
+			}
+			.container {
+				@apply(--layout-horizontal);
+				height: 100%;
+				flex: 1 0 auto;
+			}
+			.header {
+				@apply(--layout-horizontal);
+				@apply(--layout-center);
+				@apply(--layout-end-justified);
+				
+				flex: 0 0 100px;
+				background-color: var(--google-blue-500);
+				padding: 15px;
+				box-sizing: border-box;
+			}
+			.body {
+				@apply(--layout-vertical);
+				flex: 1 0 auto;
+				background-color: #e9e9e9;
+				padding: 15px;
+			}
+			.sidebar {
+				flex: 0 0 330px;
+				background-color: #f9f9f9;
+				box-sizing: border-box;
+				border-style: none solid none none;
+				border-color: #ccc;
+				border-width: 1px;
+			}
+			.container .sub-container {
+				@apply(--layout-vertical);
+				flex: 1 0 auto;
+				background-color: #bbb;
+				overflow-y: auto;
+				overflow-wrap: break-word;
+			}
+			.header > * {
+				background-color: #f9f9f9;
+				
+				margin: 5px;
+				padding: 10px;
+				box-sizing: border-box;
+				
+				height: 50px;
+				width: 50px;
+				
+				border-radius: 25px;
+				border-style: solid;
+				border-color: #bbb;
+				border-width: 1px;
+			}
+			.sidebar-button {
+				width: 100%;
+				margin: 0;
+				border-style: solid none;
+				border-color: #ccc;
+				border-width: 1px;
+				background-color: #ddd;
+			}
+			.placeholder {
+				height: 140px;
+			}
+			iron-selector > * {
+				padding: 20px 25px;
+				cursor: pointer;
+				border-left: solid 4px rgb(0,0,0,0);
+			}
+			iron-selector > .iron-selected {
+				border-left: solid 4px var(--google-blue-500);
+				background-color: #fafafa;
+				color: var(--google-blue-500);
+			}
+			.header > div.title-bar {
+				@apply(--layout-flex);
+				
+				background: none;
+				border: none;
+				
+				text-align: center;
+				color: #f9f9f9;
+				
+				font-size: 22pt;
+				font-weight: bold;
+			}
+			.header > paper-button {
+				font-size: 20px;
+				text-align: center;
+				padding-top: 12px;
+			}
+		</style>
+		<div class="container" >
+			<div class="sidebar">
+				<img src="http://via.placeholder.com/330x100">
+				<div class="placeholder"></div>
+				<iron-selector selected="1">
+					<template is="dom-repeat" items="{{menuItems}}">
+						<div>[[item]]</div>
+					</template>
+				</iron-selector>
+			</div>
+			<div class="sub-container">
+				<div class="header">
+					<div class="title-bar">[[title]]</div>
+					<template is="dom-if" if="[[loggedIn]]" restamp="true">
+						<paper-button>
+							<i class="fas fa-user"></i>
+						</paper-button>
+						<paper-button>
+							<i class="fas fa-sign-out-alt" ></i>
+						</paper-button>
+					</template>
+					<template is="dom-if" if="[[!loggedIn]]" restamp="true">
+						<paper-button>
+							<i class="fas fa-sign-in-alt" ></i>
+						</paper-button>
+					</template>
+				
+				</div>
+				<div class="body">
+					<slot></slot>
+				</div>
+			</div>
+		</div>
+	</template>
+
+	<script>
+    /**
+     * `ropi-template`
+     * layout of site
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+	class RopiTemplate extends Polymer.Element {
+		static get is() { return 'ropi-template'; }
+		static get properties() {
+			return {
+				title: {
+					type: String,
+					value: 'Main page'
+				},
+				loggedIn: {
+					type: Boolean,
+					value: false
+				},
+				menuItems: {
+					type: Array,
+					value() {
+						return ["Item 1", "Item 2", "Item 3"];
+					}
+				}
+			};
+		}
+	}
+
+	window.customElements.define(RopiTemplate.is, RopiTemplate);
+	</script>
+</dom-module>
