@@ -7,7 +7,8 @@
 	"paper-button": "PolymerElements/paper-button#^2.0.0",
 	"iron-flex-layout": "PolymerElements/iron-flex-layout#^2.0.0",
 	"iron-menu-behavior": "PolymerElements/iron-menu-behavior#^2.0.0",
-	"iron-icons": "PolymerElements/iron-icons#^2.0.0"
+	"iron-icons": "PolymerElements/iron-icons#^2.0.0",
+	"ropi-post": "rolaca11/ropi-post"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
